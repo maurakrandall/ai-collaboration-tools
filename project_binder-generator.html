@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Binder Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f4f3ed 0%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #0E2442;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #3AB4AC;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .progress-step.active {
+            border-color: #3AB4AC;
+            background: rgba(58, 180, 172, 0.05);
+        }
+
+        .progress-step.completed {
+            border-color: #E3B23C;
+            background: rgba(227, 178, 60, 0.05);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .progress-step.active .step-number {
+            background: #3AB4AC;
+        }
+
+        .progress-step.completed .step-number {
+            background: #E3B23C;
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0E2442;
+        }
+
+        .wizard-content {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            min-height: 500px;
+        }
+
+        .step-content {
+            display: none;
+        }
+
+        .step-content.active {
+            display: block;
+        }
+
+        h2 {
+            color: #0E2442;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .intro {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .belief-row {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .belief-row h3 {
+            color: #0E2442;
+            margin-bottom: 20px;
+        }
+
+        .belief-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #0E2442;
+            margin-bottom: 8px;
+        }
+
+        select, input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+        }
+
+        select:focus, input:focus, textarea:focus {
+            outline: none;
+            border-color: #3AB4AC;
+        }
+
+        .belief-preview {
+            background: white;
+            border-left: 4px solid #E3B23C;
+            padding: 15px;
+            border-radius: 6px;
+            color: #0E2442;
+            font-style: italic;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .belief-preview.show {
+            display: block;
+        }
+
+        .form-field {
+            margin-bottom: 25px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .preview-box {
+            background: #f4f3ed;
+            border: 2px solid #0E2442;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            max-height: 500px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        button {
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid;
+        }
+
+        .btn-secondary {
+            background: white;
+            border-color: #0E2442;
+            color: #0E2442;
+        }
+
+        .btn-secondary:hover {
+            background: #0E2442;
+            color: white;
+        }
+
+        .btn-primary {
+            background: #E3B23C;
+            border-color: #E3B23C;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d4a02d;
+        }
+
+        .btn-download {
+            background: #3AB4AC;
+            border-color: #3AB4AC;
+            color: white;
+            display: block;
+            margin: 0 auto 30px;
+        }
+
+        .btn-download:hover {
+            background: #2d9088;
+        }
+
+        button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .next-steps {
+            background: rgba(58, 180, 172, 0.05);
+            border-left: 4px solid #3AB4AC;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .next-steps h3 {
+            margin-top: 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Project Binder Generator</h1>
+            <p>Build your AI collaboration foundation in 3 steps</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-step active" data-step="0">
+                <div class="step-number">1</div>
+                <div class="step-title">I Believe Exercise</div>
+            </div>
+            <div class="progress-step" data-step="1">
+                <div class="step-number">2</div>
+                <div class="step-title">Team Purpose</div>
+            </div>
+            <div class="progress-step" data-step="2">
+                <div class="step-number">3</div>
+                <div class="step-title">Voice Profile</div>
+            </div>
+            <div class="progress-step" data-step="3">
+                <div class="step-number">4</div>
+                <div class="step-title">Review & Download</div>
+            </div>
+        </div>
+
+        <div class="wizard-content">
+            <!-- Step 1: I Believe -->
+            <div class="step-content active" id="step0">
+                <h2>I Believe: Your AI Collaboration Principles</h2>
+                <p class="intro">These beliefs ground your approach to working with AI. Create 3 statements by selecting from each column.</p>
+                
+                <div class="belief-row">
+                    <h3>Belief Statement 1</h3>
+                    <div class="belief-grid">
+                        <div>
+                            <label>I believe that AI...</label>
+                            <select id="belief1_col1" onchange="toggleCustom(1, 'col1')">
+                                <option value="">Select...</option>
+                                <option value="can be a true creative collaborator">can be a true creative collaborator</option>
+                                <option value="is most powerful when it augments human judgment">is most powerful when it augments human judgment</option>
+                                <option value="works best with clear context and constraints">works best with clear context and constraints</option>
+                                <option value="should be treated as a teammate, not a tool">should be treated as a teammate, not a tool</option>
+                                <option value="needs iteration to produce great work">needs iteration to produce great work</option>
+                                <option value="CUSTOM">✏️ Write your own...</option>
+                            </select>
+                            <input type="text" id="belief1_col1_custom" style="display:none; margin-top:10px;" placeholder="Write your own belief...">
+                        </div>
+                        <div>
+                            <label>...and is powerful when...</label>
+                            <select id="belief1_col2" onchange="toggleCustom(1, 'col2')">
+                                <option value="">Select...</option>
+                                <option value="we give it the full picture upfront">we give it the full picture upfront</option>
+                                <option value="we're specific about what we want">we're specific about what we want</option>
+                                <option value="we iterate together on outputs">we iterate together on outputs</option>
+                                <option value="we maintain our strategic vision">we maintain our strategic vision</option>
+                                <option value="we treat it like a colleague we respect">we treat it like a colleague we respect</option>
+                                <option value="CUSTOM">✏️ Write your own...</option>
+                            </select>
+                            <input type="text" id="belief1_col2_custom" style="display:none; margin-top:10px;" placeholder="Write your own belief...">
+                        </div>
+                    </div>
+                    <div class="belief-preview" id="preview1"></div>
+                </div>
+
+                <div class="belief-row">
+                    <h3>Belief Statement 2</h3>
+                    <div class="belief-grid">
+                        <div>
+                            <label>I believe that AI...</label>
+                            <select id="belief2_col1" onchange="toggleCustom(2, 'col1')">
+                                <option value="">Select...</option>
+                                <option value="can be a true creative collaborator">can be a true creative collaborator</option>
+                                <option value="is most powerful when it augments human judgment">is most powerful when it augments human judgment</option>
+                                <option value="works best with clear context and constraints">works best with clear context and constraints</option>
+                                <option value="should be treated as a teammate, not a tool">should be treated as a teammate, not a tool</option>
+                                <option value="needs iteration to produce great work">needs iteration to produce great work</option>
+                                <option value="CUSTOM">✏️ Write your own...</option>
+                            </select>
+                            <input type="text" id="belief2_col1_custom" style="display:none; margin-top:10px;" placeholder="Write your own belief...">
+                        </div>
+                        <div>
+                            <label>...and is powerful when...</label>
+                            <select id="belief2_col2" onchange="toggleCustom(2, 'col2')">
+                                <option value="">Select...</option>
+                                <option value="we give it the full picture upfront">we give it the full picture upfront</option>
+                                <option value="we're specific about what we want">we're specific about what we want</option>
+                                <option value="we iterate together on outputs">we iterate together on outputs</option>
+                                <option value="we maintain our strategic vision">we maintain our strategic vision</option>
+                                <option value="we treat it like a colleague we respect">we treat it like a colleague we respect</option>
+                                <option value="CUSTOM">✏️ Write your own...</option>
+                            </select>
+                            <input type="text" id="belief2_col2_custom" style="display:none; margin-top:10px;" placeholder="Write your own belief...">
+                        </div>
+                    </div>
+                    <div class="belief-preview" id="preview2"></div>
+                </div>
+
+                <div class="belief-row">
+                    <h3>Belief Statement 3</h3>
+                    <div class="belief-grid">
+                        <div>
+                            <label>I believe that AI...</label>
+                            <select id="belief3_col1" onchange="toggleCustom(3, 'col1')">
+                                <option value="">Select...</option>
+                                <option value="can be a true creative collaborator">can be a true creative collaborator</option>
+                                <option value="is most powerful when it augments human judgment">is most powerful when it augments human judgment</option>
+                                <option value="works best with clear context and constraints">works best with clear context and constraints</option>
+                                <option value="should be treated as a teammate, not a tool">should be treated as a teammate, not a tool</option>
+                                <option value="needs iteration to produce great work">needs iteration to produce great work</option>
+                                <option value="CUSTOM">✏️ Write your own...</option>
+                            </select>
+                            <input type="text" id="belief3_col1_custom" style="display:none; margin-top:10px;" placeholder="Write your own belief...">
+                        </div>
+                        <div>
+                            <label>...and is powerful when...</label>
+                            <select id="belief3_col2" onchange="toggleCustom(3, 'col2')">
+                                <option value="">Select...</option>
+                                <option value="we give it the full picture upfront">we give it the full picture upfront</option>
+                                <option value="we're specific about what we want">we're specific about what we want</option>
+                                <option value="we iterate together on outputs">we iterate together on outputs</option>
+                                <option value="we maintain our strategic vision">we maintain our strategic vision</option>
+                                <option value="we treat it like a colleague we respect">we treat it like a colleague we respect</option>
+                                <option value="CUSTOM">✏️ Write your own...</option>
+                            </select>
+                            <input type="text" id="belief3_col2_custom" style="display:none; margin-top:10px;" placeholder="Write your own belief...">
+                        </div>
+                    </div>
+                    <div class="belief-preview" id="preview3"></div>
+                </div>
+            </div>
+
+            <!-- Step 2: Team Purpose -->
+            <div class="step-content" id="step1">
+                <h2>Team Purpose Statement</h2>
+                <p class="intro">Define what you're building and why. This keeps everyone (AI and human) aligned.</p>
+                
+                <div class="form-field">
+                    <label>What are you building?</label>
+                    <input type="text" id="projectName" placeholder="e.g., a guide series on AI collaboration">
+                </div>
+
+                <div class="form-field">
+                    <label>What's your goal?</label>
+                    <textarea id="projectGoal" rows="3" placeholder="e.g., help people work effectively with AI teammates"></textarea>
+                </div>
+
+                <div class="form-field">
+                    <label>Success looks like...</label>
+                    <textarea id="successLooks" rows="3" placeholder="e.g., readers can set up their first Project Binder in under 15 minutes"></textarea>
+                </div>
+
+                <div class="form-field">
+                    <label>Voice should be...</label>
+                    <input type="text" id="voiceChar" placeholder="e.g., warm, practical, like a brilliant friend over coffee">
+                </div>
+
+                <div class="form-field">
+                    <label>Lines we don't cross...</label>
+                    <textarea id="linesNotCross" rows="2" placeholder="e.g., no corporate jargon, no hype without proof"></textarea>
+                </div>
+            </div>
+
+            <!-- Step 3: Voice Profile -->
+            <div class="step-content" id="step2">
+                <h2>Voice Profile</h2>
+                <p class="intro">Define your content voice with specific characteristics and examples.</p>
+                
+                <h3>What Our Voice Is</h3>
+                <div class="form-field">
+                    <input type="text" id="voiceTrait1" placeholder="e.g., Authentic & vulnerable">
+                </div>
+                <div class="form-field">
+                    <input type="text" id="voiceTrait2" placeholder="e.g., Conversational & relatable">
+                </div>
+                <div class="form-field">
+                    <input type="text" id="voiceTrait3" placeholder="e.g., Actionable & practical">
+                </div>
+
+                <h3>What We Avoid</h3>
+                <div class="form-field">
+                    <input type="text" id="voiceAvoid1" placeholder="e.g., Corporate jargon and buzzwords">
+                </div>
+                <div class="form-field">
+                    <input type="text" id="voiceAvoid2" placeholder="e.g., Overly academic tone">
+                </div>
+
+                <h3>Examples</h3>
+                <div class="form-field">
+                    <label>Do (Good Example):</label>
+                    <input type="text" id="voiceDo" placeholder='e.g., "What if resilience isn\'t about toughing it out?"'>
+                </div>
+                <div class="form-field">
+                    <label>Don't (Bad Example):</label>
+                    <input type="text" id="voiceDont" placeholder='e.g., "Leverage synergies to optimize resilience"'>
+                </div>
+            </div>
+
+            <!-- Step 4: Preview -->
+            <div class="step-content" id="step3">
+                <h2>Your Project Binder</h2>
+                <p class="intro">Preview your Project Binder below, then download it to use with your AI teammates.</p>
+                
+                <div class="preview-box" id="preview"></div>
+                
+                <button class="btn-download" onclick="downloadBinder()">Download Project Binder (.md)</button>
+                
+                <div class="next-steps">
+                    <h3>What to do next:</h3>
+                    <ol>
+                        <li>Open it in Google Docs, Notion, TextEdit, or any markdown-friendly app to review</li>
+                        <li>Share it with your AI at the project level or at the start of each relevant thread</li>
+                        <li>Update it as your project evolves (we're here if you need an update!)</li>
+                        <li>Reference it when you need consistency</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <button class="btn-secondary" id="backBtn" onclick="previousStep()" disabled>← Back</button>
+                <button class="btn-primary" id="nextBtn" onclick="nextStep()">Next →</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Built by Maura 👫, CP 🎙, and Soph 🔮</p>
+            <p style="margin-top: 8px;">Part of <strong>AI on Our Teams</strong> by Maura Randall</p>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 0;
+
+        // Update belief previews
+        for (let i = 1; i <= 3; i++) {
+            document.getElementById(`belief${i}_col1`).addEventListener('change', () => updateBeliefPreview(i));
+            document.getElementById(`belief${i}_col2`).addEventListener('change', () => updateBeliefPreview(i));
+        }
+
+        // Add listeners for custom inputs
+        for (let i = 1; i <= 3; i++) {
+            document.getElementById(`belief${i}_col1_custom`).addEventListener('input', () => updateBeliefPreview(i));
+            document.getElementById(`belief${i}_col2_custom`).addEventListener('input', () => updateBeliefPreview(i));
+        }
+
+        function toggleCustom(num, col) {
+            const select = document.getElementById(`belief${num}_${col}`);
+            const customInput = document.getElementById(`belief${num}_${col}_custom`);
+            
+            if (select.value === 'CUSTOM') {
+                customInput.style.display = 'block';
+                customInput.focus();
+            } else {
+                customInput.style.display = 'none';
+                customInput.value = '';
+            }
+            
+            updateBeliefPreview(num);
+        }
+
+        function getBeliefValue(num, col) {
+            const select = document.getElementById(`belief${num}_${col}`);
+            const customInput = document.getElementById(`belief${num}_${col}_custom`);
+            
+            if (select.value === 'CUSTOM') {
+                return customInput.value;
+            }
+            return select.value;
+        }
+
+        function updateBeliefPreview(num) {
+            const col1 = getBeliefValue(num, 'col1');
+            const col2 = getBeliefValue(num, 'col2');
+            const preview = document.getElementById(`preview${num}`);
+            
+            if (col1 && col2) {
+                preview.textContent = `I believe that AI ${col1} and is powerful when ${col2}.`;
+                preview.classList.add('show');
+            } else {
+                preview.classList.remove('show');
+            }
+        }
+
+        function nextStep() {
+            if (currentStep < 3) {
+                currentStep++;
+                updateView();
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                updateView();
+            }
+        }
+
+        function updateView() {
+            // Update steps
+            document.querySelectorAll('.step-content').forEach((step, idx) => {
+                step.classList.toggle('active', idx === currentStep);
+            });
+
+            // Update progress
+            document.querySelectorAll('.progress-step').forEach((step, idx) => {
+                step.classList.remove('active', 'completed');
+                if (idx === currentStep) {
+                    step.classList.add('active');
+                } else if (idx < currentStep) {
+                    step.classList.add('completed');
+                }
+            });
+
+            // Update buttons
+            document.getElementById('backBtn').disabled = currentStep === 0;
+            const nextBtn = document.getElementById('nextBtn');
+            if (currentStep === 3) {
+                nextBtn.textContent = 'Start Over';
+                nextBtn.onclick = () => { currentStep = 0; updateView(); };
+            } else {
+                nextBtn.textContent = 'Next →';
+                nextBtn.onclick = nextStep;
+            }
+
+            // Update preview on last step
+            if (currentStep === 3) {
+                generatePreview();
+            }
+        }
+
+        function generateMarkdown() {
+            const beliefs = [];
+            for (let i = 1; i <= 3; i++) {
+                const col1 = getBeliefValue(i, 'col1');
+                const col2 = getBeliefValue(i, 'col2');
+                if (col1 && col2) {
+                    beliefs.push(`I believe that AI ${col1} and is powerful when ${col2}.`);
+                }
+            }
+
+            const projectName = document.getElementById('projectName').value || '[project name]';
+            const projectGoal = document.getElementById('projectGoal').value || '[describe your goal]';
+            const successLooks = document.getElementById('successLooks').value || '[what does done look like?]';
+            const voiceChar = document.getElementById('voiceChar').value || '[key characteristics]';
+            const linesNotCross = document.getElementById('linesNotCross').value || '[your constraints]';
+            
+            const voiceTrait1 = document.getElementById('voiceTrait1').value || '[Voice characteristic 1]';
+            const voiceTrait2 = document.getElementById('voiceTrait2').value || '[Voice characteristic 2]';
+            const voiceTrait3 = document.getElementById('voiceTrait3').value || '[Voice characteristic 3]';
+            const voiceAvoid1 = document.getElementById('voiceAvoid1').value || '[Thing to avoid 1]';
+            const voiceAvoid2 = document.getElementById('voiceAvoid2').value || '[Thing to avoid 2]';
+            const voiceDo = document.getElementById('voiceDo').value || '[Example of good voice]';
+            const voiceDont = document.getElementById('voiceDont').value || '[Example of bad voice]';
+
+            return `# PROJECT BINDER
+Generated: ${new Date().toLocaleDateString()}
+
+---
+
+## I BELIEVE: MY AI COLLABORATION PRINCIPLES
+
+${beliefs.join('\n')}
+
+---
+
+## TEAM PURPOSE STATEMENT
+
+We're building **${projectName}** to ${projectGoal}.
+
+**Success looks like:** ${successLooks}
+
+**Voice should be:** ${voiceChar}
+
+**Lines we don't cross:** ${linesNotCross}
+
+---
+
+## VOICE PROFILE
+
+### What Our Voice Is:
+- ${voiceTrait1}
+- ${voiceTrait2}
+- ${voiceTrait3}
+
+### What We Avoid:
+- ${voiceAvoid1}
+- ${voiceAvoid2}
+
+### Examples:
+**Do:** ${voiceDo}
+
+**Don't:** ${voiceDont}
+
+---
+
+## NEXT STEPS
+
+Your Project Binder is ready! 
+
+**To use it:**
+1. Open it in Google Docs, Notion, TextEdit, or any markdown-friendly app to review
+2. Share it with your AI at the project level or at the start of each relevant thread
+3. Update it as your project evolves (we're here if you need an update!)
+4. Reference it when you need consistency
+
+**What's next in your AI collaboration system:**
+- Message Bus Protocol - How to pass context between AI teammates
+- Thread Continuity Guide - Managing context across thread resets
+- Voice Training Deep Dive - Expanding your voice with examples
+
+---
+
+*Built with the Project Binder Generator*
+*Part of AI on Our Teams by Maura Randall*
+`;
+        }
+
+        function generatePreview() {
+            document.getElementById('preview').textContent = generateMarkdown();
+        }
+
+        function downloadBinder() {
+            const markdown = generateMarkdown();
+            const blob = new Blob([markdown], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'project-binder.md';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
