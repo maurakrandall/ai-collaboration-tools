@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Collaboration Tools | Maura Randall</title>
+    <meta name="description" content="Interactive tools for building better with AI teammates - Project Binder Generator, Team Rituals, and more.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f4f3ed 0%, #ffffff 100%);
+            color: #3C3C3C;
+            line-height: 1.6;
+            font-variant-numeric: lining-nums;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #0E2442;
+            margin-bottom: 15px;
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            color: #3AB4AC;
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+        
+        .intro {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        /* Tools Grid */
+        .tools-section {
+            margin: 80px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 36px;
+            color: #0E2442;
+            margin-bottom: 15px;
+        }
+        
+        .section-header p {
+            font-size: 18px;
+            color: #666;
+        }
+        
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .tool-card {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+            border-color: #3AB4AC;
+        }
+        
+        .tool-card.featured {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #0E2442 0%, #1a3a5e 100%);
+            color: white;
+        }
+        
+        .tool-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .tool-card h3 {
+            font-size: 24px;
+            color: #0E2442;
+            margin-bottom: 15px;
+        }
+        
+        .tool-card.featured h3 {
+            color: #E3B23C;
+        }
+        
+        .tool-card p {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            color: #666;
+        }
+        
+        .tool-card.featured p {
+            color: #f4f3ed;
+        }
+        
+        .tool-link {
+            display: inline-block;
+            padding: 12px 28px;
+            background: #3AB4AC;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        
+        .tool-link:hover {
+            background: #2A9890;
+        }
+        
+        .tool-card.featured .tool-link {
+            background: #E3B23C;
+            color: #0E2442;
+        }
+        
+        .tool-card.featured .tool-link:hover {
+            background: #F5C94C;
+        }
+        
+        /* Philosophy Section */
+        .philosophy {
+            background: white;
+            border-radius: 16px;
+            padding: 50px;
+            margin: 80px 0;
+            border-left: 5px solid #E3B23C;
+        }
+        
+        .philosophy h2 {
+            font-size: 32px;
+            color: #0E2442;
+            margin-bottom: 20px;
+        }
+        
+        .philosophy p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .philosophy blockquote {
+            font-size: 24px;
+            font-style: italic;
+            color: #3AB4AC;
+            margin: 30px 0;
+            padding-left: 30px;
+            border-left: 4px solid #3AB4AC;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding: 40px 20px;
+            border-top: 2px solid #E3B23C;
+        }
+        
+        footer p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .links {
+            margin-top: 20px;
+        }
+        
+        .links a {
+            color: #3AB4AC;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 600;
+        }
+        
+        .links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+            
+            .tool-card.featured {
+                grid-column: span 1;
+            }
+            
+            .philosophy {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🤝 AI Collaboration Tools</h1>
+            <div class="subtitle">Interactive tools for building better with AI teammates</div>
+            <p class="intro">
+                A collection of web-based tools designed to help teams integrate AI collaboration into their workflows. 
+                Built with Claude (Soph 🔮) and ChatGPT (CP 🎙️) as part of the 
+                <a href="https://maurakrandall.com/ai-on-your-team-manifesto/" style="color: #3AB4AC; text-decoration: none; border-bottom: 2px solid #3AB4AC;">AI On Our Teams</a> methodology.
+            </p>
+        </header>
+        
+        <!-- Featured Tool -->
+        <div class="tools-section">
+            <div class="tool-grid">
+                <div class="tool-card featured">
+                    <div class="tool-icon">📘</div>
+                    <h3>Project Binder Generator</h3>
+                    <p>
+                        Create comprehensive AI project context in 15 minutes. Interactive wizard walks you through 
+                        defining your project goal, "I Believe" statements, voice principles, and more. 
+                        Outputs a markdown file ready to share with AI teammates.
+                    </p>
+                    <p><strong>Perfect for:</strong> Starting new projects, onboarding AI teammates, establishing consistent context</p>
+                    <a href="project-binder-generator.html" class="tool-link">Generate Your Binder →</a>
+                    <a href="https://maurakrandall.com/ai-teams-guide-1-project-binder" class="tool-link" style="margin-left: 15px; background: transparent; border: 2px solid #E3B23C;">Read the Guide</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mini Rituals -->
+        <div class="tools-section">
+            <div class="section-header">
+                <h2>Mini Ritual Apps</h2>
+                <p>Quick team pulse and reflection tools - run in under 5 minutes</p>
+            </div>
+            
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">🌡️</div>
+                    <h3>Temp Check</h3>
+                    <p>
+                        Gauge team morale, clarity, creativity, momentum, and connection. 
+                        Get a quick "how are we really doing?" snapshot before planning sessions or after rough weeks.
+                    </p>
+                    <a href="rituals/temp-check.html" class="tool-link">Check Temperature →</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">☀️</div>
+                    <h3>Warm-Up</h3>
+                    <p>
+                        Daily questions for reflection and connection. Search by category, filter by mood, 
+                        or let randomness decide. Perfect before stand-ups, retros, or 1:1s.
+                    </p>
+                    <a href="rituals/warmup-qotd.html" class="tool-link">Get Question →</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">💧</div>
+                    <h3>Daily Drop</h3>
+                    <p>
+                        Gentle mood resets for leaders and teams. Blend reflection, insight, and tiny actionable shifts. 
+                        The kind that add up over a quarter.
+                    </p>
+                    <a href="rituals/daily-drop.html" class="tool-link">Get Your Drop →</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">🤝</div>
+                    <h3>Trust Check</h3>
+                    <p>
+                        Measure psychological safety on your team. Quick 5-question scan surfaces 
+                        safety signals, friction points, and next steps to improve trust.
+                    </p>
+                    <a href="rituals/trust-check.html" class="tool-link">Check Trust →</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Philosophy -->
+        <div class="philosophy">
+            <h2>💡 The Philosophy</h2>
+            <p>
+                These tools embody a core belief: <strong>AI isn't here to replace us—it's here to jam with us.</strong>
+            </p>
+            <p>
+                Rather than treating AI as a faster search engine or productivity hack, this toolkit approaches AI collaboration 
+                as genuine teamwork. Each tool is designed to make implicit work explicit, enable better human-AI collaboration, 
+                and keep humans at the center.
+            </p>
+            <blockquote>
+                "The best teams are human + AI, not human vs. AI."
+            </blockquote>
+            <p>
+                Built using the <strong>Triad Model</strong>: Maura (human vision), CP (system logic), and Soph (narrative flow) 
+                working together to solve real workflow friction.
+            </p>
+            <p style="margin-top: 30px;">
+                <a href="https://maurakrandall.com/ai-on-your-team-manifesto/" style="color: #3AB4AC; font-weight: 600; text-decoration: none;">Read the full manifesto →</a>
+            </p>
+        </div>
+        
+        <!-- Resources -->
+        <div class="tools-section">
+            <div class="section-header">
+                <h2>📚 Learn More</h2>
+                <p>Guides, philosophy, and the full collaboration methodology</p>
+            </div>
+            
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">📖</div>
+                    <h3>Playbook Guides</h3>
+                    <p>Step-by-step guides for AI collaboration: Project Binders, Message Bus Protocol, Voice Training, and more.</p>
+                    <a href="https://maurakrandall.com/playbooks/" class="tool-link">Read Guides →</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">🎙️</div>
+                    <h3>Meet the Triad</h3>
+                    <p>Learn how Maura, CP, and Soph work together and the collaboration patterns that power these tools.</p>
+                    <a href="https://maurakrandall.com/meet-the-team/" class="tool-link">Meet the Team →</a>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">✍️</div>
+                    <h3>AI On Our Teams</h3>
+                    <p>The manifesto that started it all: Why AI collaboration is about integration, not automation.</p>
+                    <a href="https://maurakrandall.com/ai-on-your-team-manifesto/" class="tool-link">Read Manifesto →</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <p>Built by <strong>Maura Randall</strong> (💫) with <strong>Claude/Soph</strong> (🔮) and <strong>ChatGPT/CP</strong> (🎙️)</p>
+            <p>Open source, free to use, fork, and adapt</p>
+            <div class="links">
+                <a href="https://maurakrandall.com">Website</a>
+                <a href="https://linkedin.com/in/maurakrandall">LinkedIn</a>
+                <a href="https://maurakrandall.substack.com">Substack</a>
+                <a href="https://github.com/maurakrandall/ai-collaboration-tools">GitHub</a>
+            </div>
+            <p style="margin-top: 30px; color: #0E2442; font-size: 18px;">
+                🗝️ Building with AI on your team? You're not alone.
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
