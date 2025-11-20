@@ -12,8 +12,8 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #f4f3ed 0%, #ffffff 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -21,82 +21,101 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
         }
 
         .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
             text-align: center;
-            margin-bottom: 40px;
         }
 
         .header h1 {
-            color: #0E2442;
-            font-size: 36px;
+            font-size: 2.5em;
             margin-bottom: 10px;
+            font-weight: 700;
         }
 
         .header p {
-            color: #3AB4AC;
-            font-size: 18px;
-            font-weight: 500;
+            font-size: 1.1em;
+            opacity: 0.95;
         }
 
         .progress-bar {
             display: flex;
-            gap: 10px;
-            margin-bottom: 40px;
+            justify-content: space-between;
+            padding: 30px 40px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            overflow-x: auto;
         }
 
         .progress-step {
             flex: 1;
             text-align: center;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            border: 2px solid #e0e0e0;
+            position: relative;
+            min-width: 80px;
         }
 
-        .progress-step.active {
-            border-color: #3AB4AC;
-            background: rgba(58, 180, 172, 0.05);
+        .progress-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: #dee2e6;
+            z-index: 0;
         }
 
-        .progress-step.completed {
-            border-color: #E3B23C;
-            background: rgba(227, 178, 60, 0.05);
+        .progress-step.active:not(:last-child)::after {
+            background: #667eea;
         }
 
-        .step-number {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
+        .progress-step.completed:not(:last-child)::after {
+            background: #28a745;
+        }
+
+        .progress-number {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: #e0e0e0;
+            background: #dee2e6;
             color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-step.active .progress-number {
+            background: #667eea;
+        }
+
+        .progress-step.completed .progress-number {
+            background: #28a745;
+        }
+
+        .progress-label {
+            font-size: 0.85em;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .progress-step.active .progress-label {
+            color: #667eea;
             font-weight: 600;
-            margin-bottom: 8px;
         }
 
-        .progress-step.active .step-number {
-            background: #3AB4AC;
-        }
-
-        .progress-step.completed .step-number {
-            background: #E3B23C;
-        }
-
-        .step-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #0E2442;
-        }
-
-        .wizard-content {
-            background: white;
-            border-radius: 16px;
+        .content {
             padding: 40px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            min-height: 500px;
         }
 
         .step-content {
@@ -107,67 +126,104 @@
             display: block;
         }
 
-        h2 {
-            color: #0E2442;
-            font-size: 28px;
+        .step-content h2 {
+            color: #2d3748;
+            font-size: 1.8em;
             margin-bottom: 15px;
         }
 
-        .intro {
-            color: #666;
-            margin-bottom: 30px;
+        .step-intro {
+            color: #718096;
+            font-size: 1.05em;
             line-height: 1.6;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f7fafc;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+
+        .example-box {
+            background: #edf2f7;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+            color: #4a5568;
+            border-left: 3px solid #4299e1;
+        }
+
+        .example-box strong {
+            color: #2d3748;
+        }
+
+        .form-field {
+            margin-bottom: 25px;
+        }
+
+        .form-field label {
+            display: block;
+            color: #2d3748;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        .text-input, .textarea-input, .select-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        .text-input:focus, .textarea-input:focus, .select-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .textarea-input {
+            resize: vertical;
+            min-height: 100px;
         }
 
         .belief-row {
-            background: #f9f9f9;
+            background: #f7fafc;
+            padding: 20px;
             border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-            border: 2px solid #e0e0e0;
+            margin-bottom: 20px;
         }
 
         .belief-row h3 {
-            color: #0E2442;
-            margin-bottom: 20px;
+            color: #4a5568;
+            font-size: 1.1em;
+            margin-bottom: 15px;
         }
 
         .belief-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 15px;
             margin-bottom: 15px;
         }
 
-        label {
+        .belief-col label {
             display: block;
-            font-weight: 600;
-            color: #0E2442;
+            font-size: 0.9em;
+            color: #718096;
             margin-bottom: 8px;
-        }
-
-        select, input, textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 15px;
-            font-family: inherit;
-        }
-
-        select:focus, input:focus, textarea:focus {
-            outline: none;
-            border-color: #3AB4AC;
+            font-weight: 500;
         }
 
         .belief-preview {
             background: white;
-            border-left: 4px solid #E3B23C;
             padding: 15px;
-            border-radius: 6px;
-            color: #0E2442;
+            border-radius: 8px;
+            border-left: 4px solid #48bb78;
+            color: #2d3748;
             font-style: italic;
-            margin-top: 15px;
             display: none;
         }
 
@@ -175,97 +231,162 @@
             display: block;
         }
 
-        .form-field {
-            margin-bottom: 25px;
+        .item-list {
+            margin-bottom: 20px;
         }
 
-        textarea {
-            resize: vertical;
+        .item-entry {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
         }
 
-        .preview-box {
-            background: #f4f3ed;
-            border: 2px solid #0E2442;
+        .item-entry input {
+            flex: 1;
+        }
+
+        .remove-btn {
+            background: #fed7d7;
+            color: #c53030;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .add-btn {
+            background: #e6f2ff;
+            color: #667eea;
+            border: 2px dashed #667eea;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .add-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .teammate-section {
+            background: #f7fafc;
+            padding: 20px;
             border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .teammate-section h3 {
+            color: #4a5568;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .review-section {
+            background: #f7fafc;
             padding: 25px;
-            margin-bottom: 30px;
-            max-height: 500px;
-            overflow-y: auto;
-            white-space: pre-wrap;
-            font-family: monospace;
-            font-size: 13px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #48bb78;
+        }
+
+        .review-section h3 {
+            color: #2d3748;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .review-section p {
+            color: #4a5568;
             line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .success-message {
+            background: #c6f6d5;
+            color: #22543d;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid #38a169;
         }
 
         .navigation {
             display: flex;
             justify-content: space-between;
-            margin-top: 40px;
+            padding: 30px 40px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
         }
 
-        button {
-            padding: 14px 32px;
+        .nav-button {
+            padding: 12px 30px;
+            border: none;
             border-radius: 8px;
-            font-size: 15px;
+            font-size: 1em;
             font-weight: 600;
             cursor: pointer;
-            border: 2px solid;
+            transition: all 0.3s;
         }
 
-        .btn-secondary {
-            background: white;
-            border-color: #0E2442;
-            color: #0E2442;
-        }
-
-        .btn-secondary:hover {
-            background: #0E2442;
+        .nav-button.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
 
-        .btn-primary {
-            background: #E3B23C;
-            border-color: #E3B23C;
-            color: white;
+        .nav-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
-        .btn-primary:hover {
-            background: #d4a02d;
+        .nav-button.secondary {
+            background: #e2e8f0;
+            color: #4a5568;
         }
 
-        .btn-download {
-            background: #3AB4AC;
-            border-color: #3AB4AC;
-            color: white;
-            display: block;
-            margin: 0 auto 30px;
+        .nav-button.secondary:hover {
+            background: #cbd5e0;
         }
 
-        .btn-download:hover {
-            background: #2d9088;
-        }
-
-        button:disabled {
-            opacity: 0.3;
+        .nav-button:disabled {
+            opacity: 0.5;
             cursor: not-allowed;
         }
 
-        .next-steps {
-            background: rgba(58, 180, 172, 0.05);
-            border-left: 4px solid #3AB4AC;
-            padding: 20px;
-            border-radius: 8px;
+        .download-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 20px auto;
         }
 
-        .next-steps h3 {
-            margin-top: 0;
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(72, 187, 120, 0.4);
         }
 
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #666;
-            font-size: 14px;
+        @media (max-width: 768px) {
+            .belief-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -273,435 +394,721 @@
     <div class="container">
         <div class="header">
             <h1>Project Binder Generator</h1>
-            <p>Build your AI collaboration foundation in 3 steps</p>
+            <p>Build your AI collaboration foundation in 7 steps</p>
         </div>
 
-        <div class="progress-bar">
-            <div class="progress-step active" data-step="0">
-                <div class="step-number">1</div>
-                <div class="step-title">I Believe Exercise</div>
-            </div>
-            <div class="progress-step" data-step="1">
-                <div class="step-number">2</div>
-                <div class="step-title">Team Purpose</div>
-            </div>
-            <div class="progress-step" data-step="2">
-                <div class="step-number">3</div>
-                <div class="step-title">Voice Profile</div>
-            </div>
-            <div class="progress-step" data-step="3">
-                <div class="step-number">4</div>
-                <div class="step-title">Review & Download</div>
-            </div>
-        </div>
+        <div class="progress-bar" id="progressBar"></div>
 
-        <div class="wizard-content">
-            <!-- Step 1: I Believe -->
-            <div class="step-content active" id="step0">
-                <h2>I Believe: Your AI Collaboration Principles</h2>
-                <p class="intro">These beliefs ground your approach to working with AI. Create 3 statements by selecting from each column.</p>
+        <div class="content">
+            <!-- Step 0: I Believe Exercise -->
+            <div class="step-content active" data-step="0">
+                <h2>Let's start with your beliefs 🌟</h2>
+                <p class="step-intro">
+                    These beliefs ground your approach to working with AI. They're your team's philosophyâ€”what you believe about AI collaboration and what makes it powerful. Create 3 belief statements by choosing from each column.
+                </p>
                 
-                <div class="belief-row">
-                    <h3>Belief Statement 1</h3>
-                    <div class="belief-grid">
-                        <div>
-                            <label>I believe that AI...</label>
-                            <select id="belief1_col1" onchange="toggleCustom(1, 'col1')">
-                                <option value="">Select...</option>
-                                <option value="can be a true creative collaborator">can be a true creative collaborator</option>
-                                <option value="is most powerful when it augments human judgment">is most powerful when it augments human judgment</option>
-                                <option value="works best with clear context and constraints">works best with clear context and constraints</option>
-                                <option value="should be treated as a teammate, not a tool">should be treated as a teammate, not a tool</option>
-                                <option value="needs iteration to produce great work">needs iteration to produce great work</option>
-                                <option value="CUSTOM">✏️ Write your own...</option>
-                            </select>
-                            <input type="text" id="belief1_col1_custom" style="display:none; margin-top:10px;" placeholder="Write your own belief...">
-                        </div>
-                        <div>
-                            <label>...and is powerful when...</label>
-                            <select id="belief1_col2" onchange="toggleCustom(1, 'col2')">
-                                <option value="">Select...</option>
-                                <option value="we give it the full picture upfront">we give it the full picture upfront</option>
-                                <option value="we're specific about what we want">we're specific about what we want</option>
-                                <option value="we iterate together on outputs">we iterate together on outputs</option>
-                                <option value="we maintain our strategic vision">we maintain our strategic vision</option>
-                                <option value="we treat it like a colleague we respect">we treat it like a colleague we respect</option>
-                                <option value="CUSTOM">✏️ Write your own...</option>
-                            </select>
-                            <input type="text" id="belief1_col2_custom" style="display:none; margin-top:10px;" placeholder="Write your own belief...">
-                        </div>
-                    </div>
-                    <div class="belief-preview" id="preview1"></div>
+                <div class="example-box">
+                    <strong>Example:</strong> "I believe that AI can be a true creative collaborator and is powerful when we iterate together on outputs."
                 </div>
-
-                <div class="belief-row">
-                    <h3>Belief Statement 2</h3>
-                    <div class="belief-grid">
-                        <div>
-                            <label>I believe that AI...</label>
-                            <select id="belief2_col1" onchange="toggleCustom(2, 'col1')">
-                                <option value="">Select...</option>
-                                <option value="can be a true creative collaborator">can be a true creative collaborator</option>
-                                <option value="is most powerful when it augments human judgment">is most powerful when it augments human judgment</option>
-                                <option value="works best with clear context and constraints">works best with clear context and constraints</option>
-                                <option value="should be treated as a teammate, not a tool">should be treated as a teammate, not a tool</option>
-                                <option value="needs iteration to produce great work">needs iteration to produce great work</option>
-                                <option value="CUSTOM">✏️ Write your own...</option>
-                            </select>
-                            <input type="text" id="belief2_col1_custom" style="display:none; margin-top:10px;" placeholder="Write your own belief...">
-                        </div>
-                        <div>
-                            <label>...and is powerful when...</label>
-                            <select id="belief2_col2" onchange="toggleCustom(2, 'col2')">
-                                <option value="">Select...</option>
-                                <option value="we give it the full picture upfront">we give it the full picture upfront</option>
-                                <option value="we're specific about what we want">we're specific about what we want</option>
-                                <option value="we iterate together on outputs">we iterate together on outputs</option>
-                                <option value="we maintain our strategic vision">we maintain our strategic vision</option>
-                                <option value="we treat it like a colleague we respect">we treat it like a colleague we respect</option>
-                                <option value="CUSTOM">✏️ Write your own...</option>
-                            </select>
-                            <input type="text" id="belief2_col2_custom" style="display:none; margin-top:10px;" placeholder="Write your own belief...">
-                        </div>
-                    </div>
-                    <div class="belief-preview" id="preview2"></div>
-                </div>
-
-                <div class="belief-row">
-                    <h3>Belief Statement 3</h3>
-                    <div class="belief-grid">
-                        <div>
-                            <label>I believe that AI...</label>
-                            <select id="belief3_col1" onchange="toggleCustom(3, 'col1')">
-                                <option value="">Select...</option>
-                                <option value="can be a true creative collaborator">can be a true creative collaborator</option>
-                                <option value="is most powerful when it augments human judgment">is most powerful when it augments human judgment</option>
-                                <option value="works best with clear context and constraints">works best with clear context and constraints</option>
-                                <option value="should be treated as a teammate, not a tool">should be treated as a teammate, not a tool</option>
-                                <option value="needs iteration to produce great work">needs iteration to produce great work</option>
-                                <option value="CUSTOM">✏️ Write your own...</option>
-                            </select>
-                            <input type="text" id="belief3_col1_custom" style="display:none; margin-top:10px;" placeholder="Write your own belief...">
-                        </div>
-                        <div>
-                            <label>...and is powerful when...</label>
-                            <select id="belief3_col2" onchange="toggleCustom(3, 'col2')">
-                                <option value="">Select...</option>
-                                <option value="we give it the full picture upfront">we give it the full picture upfront</option>
-                                <option value="we're specific about what we want">we're specific about what we want</option>
-                                <option value="we iterate together on outputs">we iterate together on outputs</option>
-                                <option value="we maintain our strategic vision">we maintain our strategic vision</option>
-                                <option value="we treat it like a colleague we respect">we treat it like a colleague we respect</option>
-                                <option value="CUSTOM">✏️ Write your own...</option>
-                            </select>
-                            <input type="text" id="belief3_col2_custom" style="display:none; margin-top:10px;" placeholder="Write your own belief...">
-                        </div>
-                    </div>
-                    <div class="belief-preview" id="preview3"></div>
-                </div>
+                
+                <div id="beliefsContainer"></div>
             </div>
 
-            <!-- Step 2: Team Purpose -->
-            <div class="step-content" id="step1">
-                <h2>Team Purpose Statement</h2>
-                <p class="intro">Define what you're building and why. This keeps everyone (AI and human) aligned.</p>
+            <!-- Step 1: Team Purpose -->
+            <div class="step-content" data-step="1">
+                <h2>Tell me about your project 🎯</h2>
+                <p class="step-intro">
+                    This is your team's north starâ€”what you're building and why. Clear purpose keeps everyone (AI and human) aligned on what matters.
+                </p>
+                
+                <div class="example-box">
+                    <strong>Example:</strong> "We're building a guide series on AI collaboration to help non-technical teams work confidently with AI teammates. Success looks like readers can set up their first Project Binder in under 15 minutes."
+                </div>
                 
                 <div class="form-field">
                     <label>What are you building?</label>
-                    <input type="text" id="projectName" placeholder="e.g., a guide series on AI collaboration">
+                    <input type="text" class="text-input" id="projectName" 
+                           placeholder="e.g., a content series, a product feature, a research project">
                 </div>
 
                 <div class="form-field">
-                    <label>What's your goal?</label>
-                    <textarea id="projectGoal" rows="3" placeholder="e.g., help people work effectively with AI teammates"></textarea>
+                    <label>What's your goal? What are you hoping to accomplish?</label>
+                    <textarea class="textarea-input" id="projectGoal" rows="3"
+                              placeholder="e.g., help people work effectively with AI teammates, reduce burnout through better tools"></textarea>
                 </div>
 
                 <div class="form-field">
                     <label>Success looks like...</label>
-                    <textarea id="successLooks" rows="3" placeholder="e.g., readers can set up their first Project Binder in under 15 minutes"></textarea>
+                    <textarea class="textarea-input" id="successLooks" rows="3"
+                              placeholder="e.g., users can complete setup in 15 minutes, team feels more aligned"></textarea>
                 </div>
 
                 <div class="form-field">
                     <label>Voice should be...</label>
-                    <input type="text" id="voiceChar" placeholder="e.g., warm, practical, like a brilliant friend over coffee">
+                    <input type="text" class="text-input" id="voiceCharacteristics"
+                           placeholder="e.g., warm and practical, like a brilliant friend over coffee">
                 </div>
 
                 <div class="form-field">
                     <label>Lines we don't cross...</label>
-                    <textarea id="linesNotCross" rows="2" placeholder="e.g., no corporate jargon, no hype without proof"></textarea>
+                    <textarea class="textarea-input" id="linesNotCross" rows="2"
+                              placeholder="e.g., no corporate jargon, no hype without proof"></textarea>
                 </div>
             </div>
 
-            <!-- Step 3: Voice Profile -->
-            <div class="step-content" id="step2">
-                <h2>Voice Profile</h2>
-                <p class="intro">Define your content voice with specific characteristics and examples.</p>
+            <!-- Step 2: Voice Profile -->
+            <div class="step-content" data-step="2">
+                <h2>Let's define your voice 🎤</h2>
+                <p class="step-intro">
+                    Your voice is how you communicateâ€”the tone, personality, and style that makes your content distinctly yours. Be specific! "Professional" tells AI nothing. "Warm and direct, like a trusted colleague" gives clear direction.
+                </p>
                 
-                <h3>What Our Voice Is</h3>
-                <div class="form-field">
-                    <input type="text" id="voiceTrait1" placeholder="e.g., Authentic & vulnerable">
+                <div class="example-box">
+                    <strong>Example:</strong> "Authentic & vulnerable, Conversational & relatable, Actionable & practical"<br>
+                    <strong>Avoid:</strong> "Corporate jargon, Hype without proof"
                 </div>
+                
+                <h3 style="margin: 30px 0 15px; color: #4a5568;">What our voice IS</h3>
+                <div id="voiceTraitsContainer"></div>
+
+                <h3 style="margin: 30px 0 15px; color: #4a5568;">What we AVOID</h3>
+                <div id="voiceAvoidContainer"></div>
+
+                <h3 style="margin: 30px 0 15px; color: #4a5568;">Show me with examples</h3>
                 <div class="form-field">
-                    <input type="text" id="voiceTrait2" placeholder="e.g., Conversational & relatable">
-                </div>
-                <div class="form-field">
-                    <input type="text" id="voiceTrait3" placeholder="e.g., Actionable & practical">
+                    <label>DO (Good example of your voice):</label>
+                    <textarea class="textarea-input" id="voiceDo" rows="2"
+                              placeholder='e.g., "What if resilience isn'"'"'t about toughing it out?"'></textarea>
                 </div>
 
-                <h3>What We Avoid</h3>
                 <div class="form-field">
-                    <input type="text" id="voiceAvoid1" placeholder="e.g., Corporate jargon and buzzwords">
-                </div>
-                <div class="form-field">
-                    <input type="text" id="voiceAvoid2" placeholder="e.g., Overly academic tone">
-                </div>
-
-                <h3>Examples</h3>
-                <div class="form-field">
-                    <label>Do (Good Example):</label>
-                    <input type="text" id="voiceDo" placeholder='e.g., "What if resilience isn\'t about toughing it out?"'>
-                </div>
-                <div class="form-field">
-                    <label>Don't (Bad Example):</label>
-                    <input type="text" id="voiceDont" placeholder='e.g., "Leverage synergies to optimize resilience"'>
+                    <label>DON'T (What you want to avoid):</label>
+                    <textarea class="textarea-input" id="voiceDont" rows="2"
+                              placeholder='e.g., "Experts say you need better resilience strategies"'></textarea>
                 </div>
             </div>
 
-            <!-- Step 4: Preview -->
-            <div class="step-content" id="step3">
-                <h2>Your Project Binder</h2>
-                <p class="intro">Preview your Project Binder below, then download it to use with your AI teammates.</p>
+            <!-- Step 3: AI Teammates -->
+            <div class="step-content" data-step="3">
+                <h2>Who's on your AI team? 🤖</h2>
+                <p class="step-intro">
+                    Tell me about your AI teammates. Who are they? What are their strengths? When do you call on each of them?
+                </p>
                 
-                <div class="preview-box" id="preview"></div>
+                <div class="example-box">
+                    <strong>Example:</strong><br>
+                    <strong>CP (ChatGPT)</strong> - Strengths: System thinking, technical architecture. When to use: Building structured systems, code generation.<br>
+                    <strong>Soph (Claude)</strong> - Strengths: Narrative, strategy, content creation. When to use: Writing guides, strategic planning.
+                </div>
                 
-                <button class="btn-download" onclick="downloadBinder()">Download Project Binder (.md)</button>
+                <div id="teammatesContainer"></div>
+                <button class="add-btn" onclick="addTeammate()">+ Add Another Teammate</button>
+            </div>
+
+            <!-- Step 4: Context Library -->
+            <div class="step-content" data-step="4">
+                <h2>Your context library 📚</h2>
+                <p class="step-intro">
+                    What essential documents, decisions, or references should your AI teammates always have access to? This is your team's institutional knowledge.
+                </p>
                 
-                <div class="next-steps">
-                    <h3>What to do next:</h3>
-                    <ol>
-                        <li>Open it in Google Docs, Notion, TextEdit, or any markdown-friendly app to review</li>
-                        <li>Share it with your AI at the project level or at the start of each relevant thread</li>
-                        <li>Update it as your project evolves (we're here if you need an update!)</li>
-                        <li>Reference it when you need consistency</li>
-                    </ol>
+                <div class="example-box">
+                    <strong>Essential docs:</strong> Brand guidelines, product roadmap, user research<br>
+                    <strong>Key decisions:</strong> We're focusing on non-technical users first, We prioritize clarity over features
+                </div>
+                
+                <h3 style="margin: 30px 0 15px; color: #4a5568;">Essential Documents</h3>
+                <div id="docsContainer" class="item-list"></div>
+                <button class="add-btn" onclick="addDoc()">+ Add Document</button>
+
+                <h3 style="margin: 30px 0 15px; color: #4a5568;">Key Decisions</h3>
+                <div id="decisionsContainer" class="item-list"></div>
+                <button class="add-btn" onclick="addDecision()">+ Add Decision</button>
+            </div>
+
+            <!-- Step 5: Communication Protocols -->
+            <div class="step-content" data-step="5">
+                <h2>How does your team sync? 🔄</h2>
+                <p class="step-intro">
+                    Communication protocols keep your team aligned. How often do you check in? How do you pass context when threads end?
+                </p>
+                
+                <div class="example-box">
+                    <strong>Sync pattern:</strong> Daily async updates, weekly deep-dives<br>
+                    <strong>Handoff process:</strong> End every thread with a note documenting decisions and next steps
+                </div>
+                
+                <div class="form-field">
+                    <label>Our sync pattern</label>
+                    <textarea class="textarea-input" id="syncPattern" rows="3"
+                              placeholder="e.g., daily async updates, weekly syncs, check-ins at milestones"></textarea>
+                </div>
+
+                <div class="form-field">
+                    <label>Handoff process</label>
+                    <textarea class="textarea-input" id="handoffProcess" rows="3"
+                              placeholder="e.g., end every thread with handoff note, use Message Bus Protocol"></textarea>
+                </div>
+
+                <div class="form-field">
+                    <label>Standup frequency</label>
+                    <input type="text" class="text-input" id="standupFrequency"
+                           placeholder="e.g., daily, weekly, as-needed">
                 </div>
             </div>
 
-            <div class="navigation">
-                <button class="btn-secondary" id="backBtn" onclick="previousStep()" disabled>← Back</button>
-                <button class="btn-primary" id="nextBtn" onclick="nextStep()">Next →</button>
+            <!-- Step 6: Gut-Check Framework -->
+            <div class="step-content" data-step="6">
+                <h2>Your decision framework 🎲</h2>
+                <p class="step-intro">
+                    How does your team make decisions? What's your process when you're aligned? What do you do when you're stuck?
+                </p>
+                
+                <div class="example-box">
+                    <strong>Decision process:</strong> Run assumption checks, consult brand guidelines, human has final say<br>
+                    <strong>When stuck:</strong> Reframe the problem, take a trust check if energy feels off
+                </div>
+                
+                <div class="form-field">
+                    <label>Our decision process</label>
+                    <textarea class="textarea-input" id="decisionProcess" rows="3"
+                              placeholder="e.g., run assumption checks, consult docs, iterate on options, human makes final call"></textarea>
+                </div>
+
+                <div class="form-field">
+                    <label>When we're stuck</label>
+                    <textarea class="textarea-input" id="whenStuck" rows="3"
+                              placeholder="e.g., take a step back and reframe, look for hidden assumptions"></textarea>
+                </div>
+
+                <div class="form-field">
+                    <label>How we check alignment</label>
+                    <textarea class="textarea-input" id="alignmentCheck" rows="3"
+                              placeholder='e.g., end each session with "what feels clear or uncertain?"'></textarea>
+                </div>
+            </div>
+
+            <!-- Step 7: Review & Download -->
+            <div class="step-content" data-step="7">
+                <h2>Your Project Binder is ready! 🎉</h2>
+                <p class="step-intro">
+                    Here's everything we built together. Review it, download it, and share it with your AI teammates.
+                </p>
+
+                <div class="success-message">
+                    ✓ All 7 elements complete! Your Project Binder is ready to use.
+                </div>
+                
+                <div id="reviewContainer"></div>
+
+                <button class="download-btn" onclick="downloadBinder()">📥 Download Your Project Binder</button>
+
+                <p style="color: #718096; text-align: center; margin: 20px 0;">
+                    Your binder will download as a Markdown (.md) file.
+                </p>
             </div>
         </div>
 
-        <div class="footer">
-            <p>Built by Maura 👫, CP 🎙, and Soph 🔮</p>
-            <p style="margin-top: 8px;">Part of <strong>AI on Our Teams</strong> by Maura Randall</p>
+        <div class="navigation">
+            <button class="nav-button secondary" id="prevBtn" onclick="previousStep()">← Previous</button>
+            <button class="nav-button primary" id="nextBtn" onclick="nextStep()">Next →</button>
         </div>
     </div>
 
     <script>
-        let currentStep = 0;
+        // State management
+        const state = {
+            currentStep: 0,
+            beliefs: [
+                {col1: '', col2: '', col1Custom: '', col2Custom: ''},
+                {col1: '', col2: '', col1Custom: '', col2Custom: ''},
+                {col1: '', col2: '', col1Custom: '', col2Custom: ''}
+            ],
+            voiceTraits: ['', '', ''],
+            voiceAvoid: ['', ''],
+            teammates: [{name: '', strengths: '', whenToUse: ''}],
+            docs: [''],
+            decisions: ['']
+        };
 
-        // Update belief previews
-        for (let i = 1; i <= 3; i++) {
-            document.getElementById(`belief${i}_col1`).addEventListener('change', () => updateBeliefPreview(i));
-            document.getElementById(`belief${i}_col2`).addEventListener('change', () => updateBeliefPreview(i));
+        const steps = [
+            { title: "Beliefs", desc: "Your AI collaboration principles" },
+            { title: "Purpose", desc: "What you're building" },
+            { title: "Voice", desc: "How you communicate" },
+            { title: "Teammates", desc: "Your AI team" },
+            { title: "Context", desc: "Essential knowledge" },
+            { title: "Protocols", desc: "How you sync" },
+            { title: "Decisions", desc: "Your framework" },
+            { title: "Review", desc: "Finalize & download" }
+        ];
+
+        const beliefCol1Options = [
+            "can be a true creative collaborator",
+            "is most powerful when it augments human judgment",
+            "works best with clear context and constraints",
+            "should be treated as a teammate, not a tool",
+            "needs iteration to produce great work",
+            "can help us think differently about problems",
+            "OTHER"
+        ];
+
+        const beliefCol2Options = [
+            "we give it the full picture upfront",
+            "we're specific about what we want",
+            "we iterate together on outputs",
+            "we maintain our strategic vision",
+            "we're honest about what's working and what's not",
+            "we treat it like a colleague we respect",
+            "OTHER"
+        ];
+
+        // Initialize
+        function init() {
+            renderProgressBar();
+            renderBeliefs();
+            renderVoiceTraits();
+            renderVoiceAvoid();
+            renderTeammates();
+            renderDocs();
+            renderDecisions();
+            updateNavigation();
         }
 
-        // Add listeners for custom inputs
-        for (let i = 1; i <= 3; i++) {
-            document.getElementById(`belief${i}_col1_custom`).addEventListener('input', () => updateBeliefPreview(i));
-            document.getElementById(`belief${i}_col2_custom`).addEventListener('input', () => updateBeliefPreview(i));
+        // Progress bar
+        function renderProgressBar() {
+            const progressBar = document.getElementById('progressBar');
+            progressBar.innerHTML = steps.map((step, index) => `
+                <div class="progress-step ${index === state.currentStep ? 'active' : ''} ${index < state.currentStep ? 'completed' : ''}">
+                    <div class="progress-number">${index < state.currentStep ? '✓' : index + 1}</div>
+                    <div class="progress-label">${step.title}</div>
+                </div>
+            `).join('');
         }
 
-        function toggleCustom(num, col) {
-            const select = document.getElementById(`belief${num}_${col}`);
-            const customInput = document.getElementById(`belief${num}_${col}_custom`);
-            
-            if (select.value === 'CUSTOM') {
-                customInput.style.display = 'block';
-                customInput.focus();
-            } else {
-                customInput.style.display = 'none';
-                customInput.value = '';
+        // Beliefs
+        function renderBeliefs() {
+            const container = document.getElementById('beliefsContainer');
+            container.innerHTML = state.beliefs.map((belief, index) => `
+                <div class="belief-row">
+                    <h3>Belief Statement ${index + 1}</h3>
+                    <div class="belief-grid">
+                        <div class="belief-col">
+                            <label>I believe that AI...</label>
+                            <select class="select-input" onchange="handleBeliefChange(${index}, 'col1', this.value)">
+                                <option value="">Select...</option>
+                                ${beliefCol1Options.map(opt => `
+                                    <option value="${opt}" ${belief.col1 === opt ? 'selected' : ''}>${opt === 'OTHER' ? 'Other - write your own' : opt}</option>
+                                `).join('')}
+                            </select>
+                            <input type="text" class="text-input" id="beliefCol1Custom${index}" 
+                                   placeholder="Write your own..." 
+                                   style="margin-top: 10px; display: ${belief.col1 === 'OTHER' ? 'block' : 'none'};"
+                                   oninput="updateBeliefCustom(${index}, 'col1', this.value)">
+                        </div>
+                        <div class="belief-col">
+                            <label>...and is powerful when...</label>
+                            <select class="select-input" onchange="handleBeliefChange(${index}, 'col2', this.value)">
+                                <option value="">Select...</option>
+                                ${beliefCol2Options.map(opt => `
+                                    <option value="${opt}" ${belief.col2 === opt ? 'selected' : ''}>${opt === 'OTHER' ? 'Other - write your own' : opt}</option>
+                                `).join('')}
+                            </select>
+                            <input type="text" class="text-input" id="beliefCol2Custom${index}" 
+                                   placeholder="Write your own..." 
+                                   style="margin-top: 10px; display: ${belief.col2 === 'OTHER' ? 'block' : 'none'};"
+                                   oninput="updateBeliefCustom(${index}, 'col2', this.value)">
+                        </div>
+                    </div>
+                    <div class="belief-preview ${belief.col1 && belief.col2 ? 'show' : ''}" id="beliefPreview${index}">
+                        ✓ I believe that AI ${belief.col1 === 'OTHER' ? (belief.col1Custom || '[write your own]') : belief.col1} and is powerful when ${belief.col2 === 'OTHER' ? (belief.col2Custom || '[write your own]') : belief.col2}.
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function handleBeliefChange(index, col, value) {
+            state.beliefs[index][col] = value;
+            const customInput = document.getElementById(`belief${col === 'col1' ? 'Col1' : 'Col2'}Custom${index}`);
+            if (customInput) {
+                customInput.style.display = value === 'OTHER' ? 'block' : 'none';
             }
-            
-            updateBeliefPreview(num);
+            updateBeliefPreview(index);
         }
 
-        function getBeliefValue(num, col) {
-            const select = document.getElementById(`belief${num}_${col}`);
-            const customInput = document.getElementById(`belief${num}_${col}_custom`);
-            
-            if (select.value === 'CUSTOM') {
-                return customInput.value;
+        function updateBeliefCustom(index, col, value) {
+            const customKey = col + 'Custom';
+            if (!state.beliefs[index][customKey]) {
+                state.beliefs[index][customKey] = '';
             }
-            return select.value;
+            state.beliefs[index][customKey] = value;
+            updateBeliefPreview(index);
         }
 
-        function updateBeliefPreview(num) {
-            const col1 = getBeliefValue(num, 'col1');
-            const col2 = getBeliefValue(num, 'col2');
-            const preview = document.getElementById(`preview${num}`);
+        function updateBeliefPreview(index) {
+            const preview = document.getElementById(`beliefPreview${index}`);
+            const belief = state.beliefs[index];
+            const col1Text = belief.col1 === 'OTHER' ? (belief.col1Custom || '[write your own]') : belief.col1;
+            const col2Text = belief.col2 === 'OTHER' ? (belief.col2Custom || '[write your own]') : belief.col2;
             
-            if (col1 && col2) {
-                preview.textContent = `I believe that AI ${col1} and is powerful when ${col2}.`;
+            if (belief.col1 && belief.col2) {
+                preview.textContent = `✓ I believe that AI ${col1Text} and is powerful when ${col2Text}.`;
                 preview.classList.add('show');
             } else {
                 preview.classList.remove('show');
             }
         }
 
-        function nextStep() {
-            if (currentStep < 3) {
-                currentStep++;
-                updateView();
+        function updateBelief(index, col, value) {
+            // Legacy function - now using handleBeliefChange
+            handleBeliefChange(index, col, value);
+        }
+
+        // Voice traits
+        function renderVoiceTraits() {
+            const container = document.getElementById('voiceTraitsContainer');
+            container.innerHTML = state.voiceTraits.map((trait, index) => `
+                <div class="form-field">
+                    <input type="text" class="text-input" value="${trait}"
+                           placeholder="${index === 0 ? 'e.g., Authentic & vulnerable' : index === 1 ? 'e.g., Conversational & relatable' : 'e.g., Actionable & practical'}"
+                           oninput="state.voiceTraits[${index}] = this.value">
+                </div>
+            `).join('');
+        }
+
+        function renderVoiceAvoid() {
+            const container = document.getElementById('voiceAvoidContainer');
+            container.innerHTML = state.voiceAvoid.map((avoid, index) => `
+                <div class="form-field">
+                    <input type="text" class="text-input" value="${avoid}"
+                           placeholder="${index === 0 ? 'e.g., Corporate jargon' : 'e.g., Hype without proof'}"
+                           oninput="state.voiceAvoid[${index}] = this.value">
+                </div>
+            `).join('');
+        }
+
+        // Teammates
+        function renderTeammates() {
+            const container = document.getElementById('teammatesContainer');
+            container.innerHTML = state.teammates.map((teammate, index) => `
+                <div class="teammate-section">
+                    <h3>Teammate ${index + 1}</h3>
+                    <div class="form-field">
+                        <label>Name or identifier</label>
+                        <input type="text" class="text-input" value="${teammate.name}"
+                               placeholder="e.g., CP (ChatGPT), Soph (Claude)"
+                               oninput="state.teammates[${index}].name = this.value">
+                    </div>
+                    <div class="form-field">
+                        <label>Their strengths</label>
+                        <textarea class="textarea-input" rows="2"
+                                  placeholder="e.g., technical architecture, emotional nuance, long-form writing"
+                                  oninput="state.teammates[${index}].strengths = this.value">${teammate.strengths}</textarea>
+                    </div>
+                    <div class="form-field">
+                        <label>When to use them</label>
+                        <textarea class="textarea-input" rows="2"
+                                  placeholder="e.g., when building systems, when writing narrative content"
+                                  oninput="state.teammates[${index}].whenToUse = this.value">${teammate.whenToUse}</textarea>
+                    </div>
+                    ${state.teammates.length > 1 ? `<button class="remove-btn" onclick="removeTeammate(${index})">Remove Teammate</button>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function addTeammate() {
+            state.teammates.push({name: '', strengths: '', whenToUse: ''});
+            renderTeammates();
+        }
+
+        function removeTeammate(index) {
+            if (state.teammates.length > 1) {
+                state.teammates.splice(index, 1);
+                renderTeammates();
             }
+        }
+
+        // Docs & Decisions
+        function renderDocs() {
+            const container = document.getElementById('docsContainer');
+            container.innerHTML = state.docs.map((doc, index) => `
+                <div class="item-entry">
+                    <input type="text" class="text-input" value="${doc}"
+                           placeholder="e.g., Brand voice guide, Product roadmap"
+                           oninput="state.docs[${index}] = this.value">
+                    ${state.docs.length > 1 ? `<button class="remove-btn" onclick="removeDoc(${index})">✕</button>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function addDoc() {
+            state.docs.push('');
+            renderDocs();
+        }
+
+        function removeDoc(index) {
+            if (state.docs.length > 1) {
+                state.docs.splice(index, 1);
+                renderDocs();
+            }
+        }
+
+        function renderDecisions() {
+            const container = document.getElementById('decisionsContainer');
+            container.innerHTML = state.decisions.map((decision, index) => `
+                <div class="item-entry">
+                    <input type="text" class="text-input" value="${decision}"
+                           placeholder="e.g., We're focusing on non-technical users first"
+                           oninput="state.decisions[${index}] = this.value">
+                    ${state.decisions.length > 1 ? `<button class="remove-btn" onclick="removeDecision(${index})">✕</button>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function addDecision() {
+            state.decisions.push('');
+            renderDecisions();
+        }
+
+        function removeDecision(index) {
+            if (state.decisions.length > 1) {
+                state.decisions.splice(index, 1);
+                renderDecisions();
+            }
+        }
+
+        // Navigation
+        function updateNavigation() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.disabled = state.currentStep === 0;
+            
+            if (state.currentStep === steps.length - 1) {
+                nextBtn.textContent = 'Start Over';
+                nextBtn.classList.remove('primary');
+                nextBtn.classList.add('secondary');
+            } else {
+                nextBtn.textContent = 'Next →';
+                nextBtn.classList.add('primary');
+                nextBtn.classList.remove('secondary');
+            }
+        }
+
+        function nextStep() {
+            if (state.currentStep === steps.length - 1) {
+                state.currentStep = 0;
+            } else {
+                if (state.currentStep === 6) {
+                    renderReview();
+                }
+                state.currentStep++;
+            }
+            showStep(state.currentStep);
         }
 
         function previousStep() {
-            if (currentStep > 0) {
-                currentStep--;
-                updateView();
+            if (state.currentStep > 0) {
+                state.currentStep--;
+                showStep(state.currentStep);
             }
         }
 
-        function updateView() {
-            // Update steps
-            document.querySelectorAll('.step-content').forEach((step, idx) => {
-                step.classList.toggle('active', idx === currentStep);
+        function showStep(stepIndex) {
+            document.querySelectorAll('.step-content').forEach(el => {
+                el.classList.remove('active');
             });
-
-            // Update progress
-            document.querySelectorAll('.progress-step').forEach((step, idx) => {
-                step.classList.remove('active', 'completed');
-                if (idx === currentStep) {
-                    step.classList.add('active');
-                } else if (idx < currentStep) {
-                    step.classList.add('completed');
-                }
-            });
-
-            // Update buttons
-            document.getElementById('backBtn').disabled = currentStep === 0;
-            const nextBtn = document.getElementById('nextBtn');
-            if (currentStep === 3) {
-                nextBtn.textContent = 'Start Over';
-                nextBtn.onclick = () => { currentStep = 0; updateView(); };
-            } else {
-                nextBtn.textContent = 'Next →';
-                nextBtn.onclick = nextStep;
-            }
-
-            // Update preview on last step
-            if (currentStep === 3) {
-                generatePreview();
-            }
+            document.querySelector(`.step-content[data-step="${stepIndex}"]`).classList.add('active');
+            renderProgressBar();
+            updateNavigation();
+            window.scrollTo(0, 0);
         }
 
-        function generateMarkdown() {
-            const beliefs = [];
-            for (let i = 1; i <= 3; i++) {
-                const col1 = getBeliefValue(i, 'col1');
-                const col2 = getBeliefValue(i, 'col2');
-                if (col1 && col2) {
-                    beliefs.push(`I believe that AI ${col1} and is powerful when ${col2}.`);
-                }
-            }
+        // Review
+        function renderReview() {
+            const container = document.getElementById('reviewContainer');
+            const beliefs = state.beliefs
+                .filter(b => b.col1 && b.col2)
+                .map(b => {
+                    const col1Text = b.col1 === 'OTHER' ? (b.col1Custom || '[write your own]') : b.col1;
+                    const col2Text = b.col2 === 'OTHER' ? (b.col2Custom || '[write your own]') : b.col2;
+                    return `I believe that AI ${col1Text} and is powerful when ${col2Text}.`;
+                })
+                .join(' ');
 
             const projectName = document.getElementById('projectName').value || '[project name]';
-            const projectGoal = document.getElementById('projectGoal').value || '[describe your goal]';
-            const successLooks = document.getElementById('successLooks').value || '[what does done look like?]';
-            const voiceChar = document.getElementById('voiceChar').value || '[key characteristics]';
-            const linesNotCross = document.getElementById('linesNotCross').value || '[your constraints]';
+            const projectGoal = document.getElementById('projectGoal').value || '[goal]';
             
-            const voiceTrait1 = document.getElementById('voiceTrait1').value || '[Voice characteristic 1]';
-            const voiceTrait2 = document.getElementById('voiceTrait2').value || '[Voice characteristic 2]';
-            const voiceTrait3 = document.getElementById('voiceTrait3').value || '[Voice characteristic 3]';
-            const voiceAvoid1 = document.getElementById('voiceAvoid1').value || '[Thing to avoid 1]';
-            const voiceAvoid2 = document.getElementById('voiceAvoid2').value || '[Thing to avoid 2]';
-            const voiceDo = document.getElementById('voiceDo').value || '[Example of good voice]';
-            const voiceDont = document.getElementById('voiceDont').value || '[Example of bad voice]';
+            const teammates = state.teammates
+                .filter(t => t.name)
+                .map(t => `<li><strong>${t.name}</strong> - ${t.strengths || '[strengths]'}</li>`)
+                .join('');
 
-            return `# PROJECT BINDER
+            const docs = state.docs.filter(d => d).join(', ') || 'None added';
+            const decisions = state.decisions.filter(d => d).join(', ') || 'None added';
+
+            const syncPattern = document.getElementById('syncPattern').value || 'Not specified';
+            const standupFrequency = document.getElementById('standupFrequency').value || 'Not specified';
+            const decisionProcess = document.getElementById('decisionProcess').value || 'Not specified';
+
+            container.innerHTML = `
+                <div class="review-section">
+                    <h3>1. Your Beliefs</h3>
+                    <p>${beliefs || 'Complete Step 1 to add beliefs'}</p>
+                </div>
+                <div class="review-section">
+                    <h3>2. Team Purpose</h3>
+                    <p><strong>${projectName}</strong> - ${projectGoal}</p>
+                </div>
+                <div class="review-section">
+                    <h3>3. Voice Profile</h3>
+                    <p>What we are: ${state.voiceTraits.filter(t => t).join(', ') || 'Not specified'}</p>
+                    <p>What we avoid: ${state.voiceAvoid.filter(t => t).join(', ') || 'Not specified'}</p>
+                </div>
+                <div class="review-section">
+                    <h3>4. AI Teammates</h3>
+                    <ul>${teammates || '<li>None added</li>'}</ul>
+                </div>
+                <div class="review-section">
+                    <h3>5. Context Library</h3>
+                    <p>Essential docs: ${docs}</p>
+                    <p>Key decisions: ${decisions}</p>
+                </div>
+                <div class="review-section">
+                    <h3>6. Communication Protocols</h3>
+                    <p>Sync: ${syncPattern}</p>
+                    <p>Standups: ${standupFrequency}</p>
+                </div>
+                <div class="review-section">
+                    <h3>7. Decision Framework</h3>
+                    <p>${decisionProcess}</p>
+                </div>
+            `;
+        }
+
+        // Download
+        function downloadBinder() {
+            const beliefs = state.beliefs
+                .filter(b => b.col1 && b.col2)
+                .map(b => {
+                    const col1Text = b.col1 === 'OTHER' ? (b.col1Custom || '[write your own]') : b.col1;
+                    const col2Text = b.col2 === 'OTHER' ? (b.col2Custom || '[write your own]') : b.col2;
+                    return `I believe that AI ${col1Text} and is powerful when ${col2Text}.`;
+                })
+                .join('\n\n');
+
+            const teammates = state.teammates
+                .filter(t => t.name)
+                .map(t => `**${t.name}**\n- Strengths: ${t.strengths || '[describe their strengths]'}\n- When to use: ${t.whenToUse || '[when to call on this teammate]'}`)
+                .join('\n\n');
+
+            const docs = state.docs.filter(d => d).map(d => `- ${d}`).join('\n');
+            const decisions = state.decisions.filter(d => d).map(d => `- ${d}`).join('\n');
+
+            const markdown = `# PROJECT BINDER
 Generated: ${new Date().toLocaleDateString()}
 
 ---
 
-## I BELIEVE: MY AI COLLABORATION PRINCIPLES
+## 1. I BELIEVE: MY AI COLLABORATION PRINCIPLES
 
-${beliefs.join('\n')}
-
----
-
-## TEAM PURPOSE STATEMENT
-
-We're building **${projectName}** to ${projectGoal}.
-
-**Success looks like:** ${successLooks}
-
-**Voice should be:** ${voiceChar}
-
-**Lines we don't cross:** ${linesNotCross}
+${beliefs || 'Define your beliefs about AI collaboration.'}
 
 ---
 
-## VOICE PROFILE
+## 2. TEAM PURPOSE STATEMENT
+
+We're building **${document.getElementById('projectName').value || '[project name]'}** to ${document.getElementById('projectGoal').value || '[describe your goal]'}.
+
+**Success looks like:** ${document.getElementById('successLooks').value || '[what does done look like?]'}
+
+**Voice should be:** ${document.getElementById('voiceCharacteristics').value || '[key characteristics]'}
+
+**Lines we don't cross:** ${document.getElementById('linesNotCross').value || '[your constraints]'}
+
+---
+
+## 3. VOICE PROFILE
 
 ### What Our Voice Is:
-- ${voiceTrait1}
-- ${voiceTrait2}
-- ${voiceTrait3}
+${state.voiceTraits.filter(t => t).map(t => `- ${t}`).join('\n') || '- [Voice characteristic 1]\n- [Voice characteristic 2]\n- [Voice characteristic 3]'}
 
 ### What We Avoid:
-- ${voiceAvoid1}
-- ${voiceAvoid2}
+${state.voiceAvoid.filter(t => t).map(t => `- ${t}`).join('\n') || '- [Thing to avoid 1]\n- [Thing to avoid 2]'}
 
 ### Examples:
-**Do:** ${voiceDo}
+**Do:** ${document.getElementById('voiceDo').value || '[Example of good voice]'}
 
-**Don't:** ${voiceDont}
+**Don't:** ${document.getElementById('voiceDont').value || '[Example of bad voice]'}
+
+---
+
+## 4. AI TEAMMATE PROFILES
+
+${teammates || 'Define your AI teammates.'}
+
+---
+
+## 5. CONTEXT LIBRARY
+
+### Essential Documents:
+${docs || '- [Document 1]\n- [Document 2]'}
+
+### Key Decisions:
+${decisions || '- [Decision 1]\n- [Decision 2]'}
+
+---
+
+## 6. COMMUNICATION PROTOCOLS
+
+**Our sync pattern:** ${document.getElementById('syncPattern').value || '[describe how often and how you sync]'}
+
+**Handoff process:** ${document.getElementById('handoffProcess').value || '[how you pass context between threads/teammates]'}
+
+**Standup frequency:** ${document.getElementById('standupFrequency').value || '[daily, weekly, as-needed]'}
+
+---
+
+## 7. GUT-CHECK FRAMEWORK
+
+**Decision process:** ${document.getElementById('decisionProcess').value || '[how you make decisions as a team]'}
+
+**When stuck:** ${document.getElementById('whenStuck').value || '[what you do when blocked]'}
+
+**Alignment check:** ${document.getElementById('alignmentCheck').value || '[how you verify everyone is aligned]'}
 
 ---
 
 ## NEXT STEPS
 
-Your Project Binder is ready! 
+Your Project Binder is ready!
 
 **To use it:**
-1. Open it in Google Docs, Notion, TextEdit, or any markdown-friendly app to review
-2. Share it with your AI at the project level or at the start of each relevant thread
-3. Update it as your project evolves (we're here if you need an update!)
-4. Reference it when you need consistency
-
-**What's next in your AI collaboration system:**
-- Message Bus Protocol - How to pass context between AI teammates
-- Thread Continuity Guide - Managing context across thread resets
-- Voice Training Deep Dive - Expanding your voice with examples
+1. Save this file to Google Docs, Notion, or your preferred tool
+2. Share the link with your AI teammates at the start of each thread
+3. Update it as your project evolves
+4. Reference it when you need to maintain consistency
 
 ---
 
 *Built with the Project Binder Generator*
 *Part of AI on Our Teams by Maura Randall*
+*https://maurakrandall.com*
 `;
-        }
 
-        function generatePreview() {
-            document.getElementById('preview').textContent = generateMarkdown();
-        }
-
-        function downloadBinder() {
-            const markdown = generateMarkdown();
             const blob = new Blob([markdown], { type: 'text/markdown' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'project-binder.md';
+            const projectName = document.getElementById('projectName').value || 'new';
+            a.download = `project-binder-${projectName.toLowerCase().replace(/\s+/g, '-')}.md`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
         }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
